@@ -2,7 +2,9 @@
 const win = 'You win!';
 const lose = 'You lose!';
 const tie = "It's a tie!";
+const invalid = 'Stop trying to be funny and play the damn game... smh';
 const playButton = document.getElementById('playBtn');
+let computerChoice = '';
 
 // Getting user input
 const getUserChoice = userInput => {
@@ -14,7 +16,7 @@ const getUserChoice = userInput => {
   ) {
     return userInput;
   } else {
-    console.log('Invlid input.');
+    return 'Invlid input.';
   }
 };
 
@@ -27,26 +29,20 @@ const getComputerChoice = () => {
       break;
     case 1:
       return 'paper';
-      break;
     case 2:
       return 'scissors';
       break;
     default:
-      console.log('error');
+      console.log('getComputerChoice error');
       break;
   }
 };
 
 // Computing winner
 const determineWinner = (userChoice, computerChoice) => {
-  console.log(`Your choice is: ${userChoice}
-  Computer's choice is: ${computerChoice}
-  ==============================
-
-  ...And the result is:
-  `);
-
   if (userChoice === computerChoice) {
+    console.log(userChoice);
+    console.log(computerChoice);
     return tie;
   }
   if (userChoice === 'rock') {
@@ -61,20 +57,40 @@ const determineWinner = (userChoice, computerChoice) => {
     } else if (computerChoice === 'paper') {
       return win;
     }
-  } else {
+  } else if (userChoice === 'paper') {
     if (computerChoice === 'scissors') {
       return lose;
     } else if (computerChoice === 'rock') {
       return win;
     }
+  } else {
+    return invalid;
   }
+};
+
+// showResults(determineWinner(getUserChoice(userChoice), getComputerChoice())
+
+const showResults = (userChoice, computerChoice, result) => {
+  document.getElementById(
+    'yourChoice'
+  ).innerHTML = `Your choice is: ${userChoice}`;
+  document.getElementById(
+    'computerChoice'
+  ).innerHTML = `Computer's choice is: ${computerChoice}`;
+  document.getElementById(
+    'winner'
+  ).innerHTML = `...And the result is: ${result}`;
 };
 
 const play = () => {
   let userChoice = prompt('Rock, paper, or scissors?');
-  determineWinner(getUserChoice(userChoice), getcomputerChoice());
+  let computerChoice = getComputerChoice();
+  showResults(
+    userChoice,
+    computerChoice,
+    determineWinner(getUserChoice(userChoice), computerChoice)
+  );
 };
-
 playButton.addEventListener('click', play);
 
 // Uncomment to test code
