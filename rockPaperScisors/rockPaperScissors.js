@@ -4,23 +4,17 @@ const lose = 'You lose!';
 const tie = "It's a tie!";
 const invalid = 'Stop trying to be funny and play the damn game... smh';
 const playButton = document.getElementById('playBtn');
-let computerChoice = '';
+let choiceButtons = document.querySelectorAll('.choiceBtn');
 
-// Getting user input
-const getUserChoice = userInput => {
-  userInput = userInput.toLowerCase();
-  if (
-    userInput === 'rock' ||
-    userInput === 'paper' ||
-    userInput === 'scissors'
-  ) {
-    return userInput;
-  } else {
-    return 'Invlid input.';
-  }
+// Reveal choice buttons
+const showChoices = () => {
+  document.getElementById('showChoicesContainer').style.visibility = 'visible';
+  document.getElementById('showWinnerContainer').style.visibility = 'visible';
 };
 
-// Getting computer input
+playButton.addEventListener('click', showChoices);
+
+// Get computer input
 const getComputerChoice = () => {
   let choice = Math.floor(Math.random() * 3);
   switch (choice) {
@@ -38,11 +32,9 @@ const getComputerChoice = () => {
   }
 };
 
-// Computing winner
+// Compute winner
 const determineWinner = (userChoice, computerChoice) => {
   if (userChoice === computerChoice) {
-    console.log(userChoice);
-    console.log(computerChoice);
     return tie;
   }
   if (userChoice === 'rock') {
@@ -68,8 +60,7 @@ const determineWinner = (userChoice, computerChoice) => {
   }
 };
 
-// showResults(determineWinner(getUserChoice(userChoice), getComputerChoice())
-
+// Reveal results text
 const showResults = (userChoice, computerChoice, result) => {
   document.getElementById(
     'yourChoice'
@@ -77,28 +68,17 @@ const showResults = (userChoice, computerChoice, result) => {
   document.getElementById(
     'computerChoice'
   ).innerHTML = `Computer's choice is: ${computerChoice}`;
-  document.getElementById(
-    'winner'
-  ).innerHTML = `...And the result is: ${result}`;
+  document.getElementById('winner').innerHTML = `...And the result is: `;
+  document.getElementById('winnerResult').innerHTML = `${result}`.toUpperCase();
 };
 
-const play = () => {
-  let userChoice = prompt('Rock, paper, or scissors?');
+// Check what button was clicked, get attr of button, compute and show results
+const getUserChoiceAndPlay = event => {
+  let target = event.target.getAttribute('data-choice');
   let computerChoice = getComputerChoice();
-  showResults(
-    userChoice,
-    computerChoice,
-    determineWinner(getUserChoice(userChoice), computerChoice)
-  );
+  showResults(target, computerChoice, determineWinner(target, computerChoice));
 };
-playButton.addEventListener('click', play);
 
-// Uncomment to test code
-// console.log(determineWinner(getUserChoice(), getComputerChoice()));
-
-// let playAgain = prompt('Again?').toLowerCase();
-// if (playAgain === 'yes') {
-//   console.log(determineWinner(getUserChoice(), getComputerChoice()));
-// } else {
-//   console.log('Thanks for playing!');
-// }
+choiceButtons.forEach(item => {
+  item.addEventListener('click', getUserChoiceAndPlay);
+}); // AddEventListener for each button
