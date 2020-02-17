@@ -7,7 +7,7 @@
     <title>Rock, paper, scissors</title>
     <!-- LINKS -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="main.css" />
   </head>
   <body>
     <div class="titleContainer">
@@ -15,18 +15,19 @@
     </div>
     <div class="bodyContainer">
       <div class="btnContainer">
-        <button id="playBtn" class="playBtn">PLAY!</button>
+        <button class="playBtn" id="playBtn">PLAY!</button>
       </div>
-      <div id="showChoicesContainer" class="choiceContainer">
+      <div class="choiceContainer" id="showChoicesContainer">
         <button class="choiceBtn" id="rockBtn" data-choice="rock" ">ROCK</button>
         <button class="choiceBtn" id="paperBtn" data-choice="paper" >PAPER</button>
         <button class="choiceBtn" id="scissorsBtn" data-choice="scissors" >SCISSORS</button>
       </div>
       <div class="showWinnerContainer">
-        <div id="showWinnerContainer" class="showWinner">
+        <div class="showWinner" id="showWinnerContainer">
           <h3 class="results" id="yourChoice"></h3>
           <h3 class="results" id="computerChoice"></h3>
-          <h3 class="resultsLastLine" id="winner"></h3><h3 class="resultsLastWord" id="winnerResult"></h3>
+          <h3 class="resultsLastLine" id="winner"></h3>
+          <h3 class="resultsLastWord" id="winnerResult"></h3>
         </div>
       </div>
     </div>
